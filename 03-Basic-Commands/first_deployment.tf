@@ -7,7 +7,7 @@ provider "google" {
 }
 
 resource "google_compute_instance" "vm_instance" {
-  name         = "terraform-instance"
+  name         = "amit-vm-1"
   machine_type = "f1-micro"
 
   boot_disk {
@@ -18,7 +18,7 @@ resource "google_compute_instance" "vm_instance" {
 
   network_interface {
     # A default network is created for all GCP projects
-    network       = "default"
+    network = "default"
     access_config {
     }
   }
