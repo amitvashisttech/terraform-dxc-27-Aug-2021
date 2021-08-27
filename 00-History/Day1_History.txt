@@ -1,0 +1,73 @@
+ 442  cd 03-Basic-Commands/
+  443  ls
+  444  rm -rf terraform.tfstate* .terraform
+  445  ls
+  446  cat first_deployment.tf
+  447  ls
+  448  terraform init
+  449  rm -rf .terraform
+  450  ls
+  451  terraform init
+  452  ls -la
+  453  ls -R .terraform
+  454  ls
+  455  terraform plan
+  456  terraform apply
+  457  terraform plan -out build-plan
+  458  ls
+  459  file build-plan
+  460  file first_deployment.tf
+  461  file /usr/bin/terraform
+  462  cat build-plan
+  463  xterm-256colorxterm-256colorxterm-256colorxterm-256colorxterm-256colorxterm-256colorxterm-256colorxterm-256colorxterm-256colorxterm-256colorxterm-256colorxterm-256colorxterm-256colorxterm-256colorxterm-256colorxterm-256colorxterm-256color
+  464  ls
+  465  terraform show build-plan
+  466  terraform apply  build-plan
+  467  terraform show
+  468  terraform plan --destroy -out  destroy-plan
+  469  terraform show destroy-plan
+  470  terraform apply destroy-plan
+  471  terraform show
+  472  cat first_deployment.tf
+  473  terraform apply
+  474  terraform apply --auto-approve
+  475  terraform show
+  476  terraform show
+  477  terraform refresh
+  478  terraform show
+  479  terraform plan
+  480  terraform apply
+  481  ls
+  482  terraform validate
+  483  cat first_deployment.tf
+  484  ls
+  485  vim first_deployment.tf
+  486  terraform fmt
+  487  cat first_deployment.tf
+  488  ls
+  489  terraform show
+  490  terraform apply
+  491  git pull
+  492  cd ..
+  493  git pull
+  494  cd 03-Basic-Commands/
+  495  ls
+  496  terraform destroy
+  497  ls
+  498  cd ..
+  499  ls
+  500  git logs
+  501  git log
+  502  ls
+  503  vi 03-Basic-Commands/
+  504  ls
+  505  cd 03-Basic-Commands/
+  506  ls
+  507  vim first_deployment.tf
+  508  ls
+  509  terraform apply
+  510  cd ..
+  511  ls
+  512  git add . ; git commit -m "VM Name has been modified from terraform-instance to amit-vm-1"; git push
+  513  git pull
+
