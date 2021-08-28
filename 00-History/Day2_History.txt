@@ -1,0 +1,77 @@
+  09  cd terraform-dxc-27-Aug-2021/
+  510  ls
+  511  git pull
+  512  ls
+  513  cd 04-Resources/
+  514  ls
+  515  rm -rf terraform.tfstate*
+  516  ls
+  517  vim resources.tf
+  518  ls
+  519  mkdir v1 v2 v3
+  520  ls
+  521  cp -rf resources.tf v1/
+  522  ls
+  523  cd v1/
+  524  s
+  525  ls
+  526  vim resources.tf
+  527  terraform init
+  528  terraform plan
+  529  terraform apply
+  530  terraform destroy --auto-approve
+  531  cd ..
+  532  ls
+  533  cd v2/
+  534  s
+  535  ls
+  536  mv ../v1/.terraform .
+  537  terraform apply --auto-approve
+  538  terraform destroy  --auto-approve
+  539  ls
+  540  cd ..
+  541  ls
+  542  mv v2/.terraform v3/
+  543  cd v3/
+  544  s
+  545  ls
+  546  terraform apply --auto-approve
+  547  cat resources.tf
+  548  terraform show
+  549  ls
+  550  vim resources.tf
+  551  terraform plan
+  552  terraform apply --auto-approve
+  553  vim resources.tf
+  554  terraform apply --auto-approve
+  555  vim resources.tf
+  556  terraform apply --auto-approve
+  557  vim resources.tf
+  558  terraform apply --auto-approve
+  559  ls
+  560  cd ..
+  561  ls
+  562  cp -rf v3 v4
+  563  ls
+  564  cd v4
+  565  ls
+  566  vim resources.tf
+  567  terraform apply --auto-approve
+  568  terraform destroy  --auto-approve
+  569  terraform show
+  570  terraform destroy  -target "google_compute_instance.frontend"
+  571  terraform show
+  572  terraform destroy  -target "google_compute_instance.backend"
+  573  vim resources.tf
+  574  terraform plan
+  575  terraform plan --destroy
+  576  terraform destroy
+  577  ls
+  578  cd ..
+  579  ls
+  580  rm -rf resources.tf
+  581  ls
+  582  cd ..
+  583  ls
+  584  git add . ; git commit -m "04-Resources" ; git push
+
