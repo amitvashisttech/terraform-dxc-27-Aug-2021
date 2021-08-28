@@ -1,0 +1,16 @@
+digraph {
+	compound = "true"
+	newrank = "true"
+	subgraph "root" {
+		"[root] google_compute_instance.frontend" [label = "google_compute_instance.frontend", shape = "box"]
+		"[root] provider.google" [label = "provider.google", shape = "diamond"]
+		"[root] var.zones" [label = "var.zones", shape = "note"]
+		"[root] google_compute_instance.frontend" -> "[root] provider.google"
+		"[root] google_compute_instance.frontend" -> "[root] var.zones"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] google_compute_instance.frontend"
+		"[root] provider.google (close)" -> "[root] google_compute_instance.frontend"
+		"[root] root" -> "[root] meta.count-boundary (EachMode fixup)"
+		"[root] root" -> "[root] provider.google (close)"
+	}
+}
+

@@ -1,0 +1,20 @@
+digraph {
+	compound = "true"
+	newrank = "true"
+	subgraph "root" {
+		"[root] google_compute_instance.backend" [label = "google_compute_instance.backend", shape = "box"]
+		"[root] google_compute_instance.frontend" [label = "google_compute_instance.frontend", shape = "box"]
+		"[root] provider.google" [label = "provider.google", shape = "diamond"]
+		"[root] provider.google.myregion" [label = "provider.google.myregion", shape = "diamond"]
+		"[root] google_compute_instance.backend" -> "[root] provider.google.myregion"
+		"[root] google_compute_instance.frontend" -> "[root] provider.google"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] google_compute_instance.backend"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] google_compute_instance.frontend"
+		"[root] provider.google (close)" -> "[root] google_compute_instance.frontend"
+		"[root] provider.google.myregion (close)" -> "[root] google_compute_instance.backend"
+		"[root] root" -> "[root] meta.count-boundary (EachMode fixup)"
+		"[root] root" -> "[root] provider.google (close)"
+		"[root] root" -> "[root] provider.google.myregion (close)"
+	}
+}
+
