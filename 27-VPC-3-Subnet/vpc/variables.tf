@@ -1,3 +1,20 @@
+variable "images" {
+  type = "map"
+  default = {
+    us-west1 = "debian-cloud/debian-9"
+    us-central1 = "centos-6"
+  }
+}
+
+
+variable "total_instances" {
+  default=1
+}
+
+variable "environment-name" {
+  default = "tfdemo"
+}
+
 variable "name" {
   description = "VPC Name"
   default = "mytestvpc"
