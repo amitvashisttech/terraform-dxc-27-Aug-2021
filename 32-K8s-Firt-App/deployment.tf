@@ -1,65 +1,56 @@
+
+data "google_client_config" "provider" {}
+
+data "google_container_cluster" "my_cluster" {
+  name     = "deep-dynamics-324207-cluster"
+  location = "us-east1-b"
+}
+
+provider "kubernetes" {
+  version = "~> 1.8"
+  host  = "https://${data.google_container_cluster.my_cluster.endpoint}"
+  token = data.google_client_config.provider.access_token
+  cluster_ca_certificate = base64decode(
+    data.google_container_cluster.my_cluster.master_auth[0].cluster_ca_certificate,
+  )
+}
+
+
+
+/*
 provider kubernetes {
 version = "~> 1.8"
   # leave blank to pickup config from kubectl config of local system
 }
+*/
 
-resource "kubernetes_deployment" "nginx" {
+resource "kubernetes_namespace" "test" {
   metadata {
     name = "nginx"
   }
-
+}
+resource "kubernetes_deployment" "test" {
+  metadata {
+    name      = "nginx"
+    namespace = kubernetes_namespace.test.metadata.0.name
+  }
   spec {
-   replicas = 3
+    replicas = 5
     selector {
-     match_labels = {
-      app = "nginx"
+      match_labels = {
+        app = "MyTestApp"
+      }
     }
-   }
-   
     template {
       metadata {
         labels = {
-          app = "nginx"
+          app = "MyTestApp"
         }
       }
-
       spec {
         container {
           image = "nginx"
-          name  = "app"
-
-          resources {
-            requests {
-              memory = "256Mi"
-              cpu    = "100m"
-            }
-
-            limits {
-              memory = "1Gi"
-              cpu    = "500m"
-            }
-          }
-
-          readiness_probe {
-            http_get {
-              path = "/"
-              port = "80"
-            }
-
-            initial_delay_seconds = 10
-            period_seconds        = 10
-          }
-
-          liveness_probe {
-            http_get {
-              path = "/"
-              port = "80"
-            }
-
-            initial_delay_seconds = 120
-            period_seconds        = 15
-          }
-
+          name  = "nginx-container"
           port {
             container_port = 80
           }
@@ -68,27 +59,20 @@ resource "kubernetes_deployment" "nginx" {
     }
   }
 }
-
-resource "kubernetes_service" "example" {
+resource "kubernetes_service" "test" {
   metadata {
-    name = "terraform-nginx-example"
+    name      = "nginx"
+    namespace = kubernetes_namespace.test.metadata.0.name
   }
-
   spec {
     selector = {
-      app = "nginx"
+      app = kubernetes_deployment.test.spec.0.template.0.metadata.0.labels.app
     }
-
-    session_affinity = "ClientIP"
-
+    type = "NodePort"
     port {
-      port = 80
+      node_port   = 30201
+      port        = 80
+      target_port = 80
     }
-
-    type = "LoadBalancer"
   }
-}
-
-output "lb_ip" {
-  value = "${kubernetes_service.example.load_balancer_ingress.0.ip}"
 }
